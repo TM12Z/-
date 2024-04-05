@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт Фотогалерея</title>
+    <style>
+        /* Ваш CSS стиль */
+        body {
+            overflow-x:hidden;
+            background-color: #0056b3; /* Темно-синий цвет фона */
+            margin: 0; /* Убираем отступы по умолчанию */
+            padding: 0;
+            color: #fff; /* Белый цвет текста */
+        }
+        .header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #004080; /* Ещё более темный синий цвет фона для заголовка */
+        }
+        .logo {
+            font-weight: bold;
+        }
+        .search-bar {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .search-input {
+            width: 450px; /* Увеличили длину строки поиска */
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #fff; /* Белая граница для контраста */
+            margin-right: 10px;
+        }
+        .upload-button {
+            background-color: #fff; /* Белый цвет фона для кнопки */
+            color: #004080; /* Темно-синий цвет текста для кнопки */
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #6699cc; /* Ещё менее светло-синий цвет фона для аватара */
+            /* background-image: url('аватарка.jpg'); */ /* замените 'аватарка.jpg' на путь к вашей аватарке */
+            background-size: cover;
+            margin-left: 10px;
+        }
+        .sorting-container {
+            position: relative;
+            background-color: #6699cc; /* Светло-синий цвет фона для области сортировки */
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .sorting {
+            display: flex;
+            align-items: center;
+        }
+        .sorting-text {
+            margin-right: 10px;
+        }
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 7px solid #004080; /* Темно-синий цвет стрелки */
+        }
+        .album-container {
+            background-color: #6699cc; /* Светло-синий цвет фона для контейнера фотоальбомов */
+            height: 200px; /* Уменьшили высоту фона в 1.5 раза */
+            width: calc(200px * 7 + 70px); /* Занимает всю доступную ширину */
+            overflow-x: auto; /* Включаем горизонтальную прокрутку, если контент не помещается */
+            white-space: nowrap; /* Запрещаем перенос строк, чтобы элементы оставались в одной строке */
+            padding: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .album-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff; /* Белый цвет текста */
+        }
+        .photos-container {
+            background-color: #6699cc;
+            width: calc(200px * 7 + 70px); /* Ширина равна ширине одной фотографии, умноженной на 7, плюс отступы между ними */
+            height: auto; /* Высота автоматически рассчитывается в зависимости от количества фотографий */
+            overflow-y: auto; /* Включаем вертикальную прокрутку, если контент не помещается */
+            overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+            padding: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            display: flex; /* Используем flexbox для расположения фотографий в линию */
+            flex-wrap: wrap; /* Разрешаем перенос фотографий на следующую строку */
+            justify-content: flex-start; /* Выравниваем фотографии в линии влево */
+        }
+        .photos-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff; /* Белый цвет текста */
+        }
+        .photo {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin-right: 10px;
+            margin-bottom: 10px; /* Добавляем отступ снизу для разделения строк с фотографиями */
+        }
+
+        /* Стиль модального окна */
+        .modal {
+            display: none; /* По умолчанию скрыто */
+            position: fixed; /* Положение фиксированное */
+            z-index: 1; /* Находится выше остальных элементов */
+            left: 0;
+            top: 0;
+            width: 100%; /* Ширина равна ширине экрана */
+            height: 100%; /* Высота равна высоте экрана */
+            overflow: auto; /* Добавляем прокрутку, если содержимое не помещается */
+            background-color: rgba(0,0,0,0.5); /* Тёмный фон с прозрачностью */
+        }
+
+        /* Контейнер содержимого модального окна */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* Выравнивание по центру, прижимаем сверху и снизу */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Ширина контейнера */
+            border-radius: 10px;
+            position: relative; /* Позиционирование относительно родителя */
+        }
+
+        /* Кнопка закрытия модального окна */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Стиль для блоков с полями ввода */
+        .input-block {
+            margin-bottom: 10px;
+        }
+
+        /* Стиль для кнопки "OK" */
+        #okButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #okButton:hover {
+            background-color: #45a049;
+        }
+
+        /* Стиль для блока с знаком "+" */
+        .main-block {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .add-photo {
+            font-size: 50px;
+            cursor: pointer;
+            color: #ff0000; /* Красный цвет для плюсика */
+        }
+
+        .add-photo:hover {
+            color: #45a049;
+        }
+
+        /* Стиль для кнопки загрузки изображения */
+        .upload-image {
+            display: none; /* По умолчанию скрыто */
+        }
+    </style>
+</head>
+<body>
+    <!-- Ваш HTML код -->
+    <div class="header">
+        <div class="logo">Сайт Фотогалерея</div>
+        <button id="openAlbumModalButton" class="upload-button">Загрузить фотоальбом</button>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Поиск...">
+        </div>
+        <button id="openModalButton" class="upload-button">Загрузить фото</button>
+        <div class="avatar"></div>
+    </div>
+    <div class="sorting-container">
+        <div class="sorting">
+            <div class="sorting-text">Сортировка</div>
+            <div class="arrow-down"></div>
+        </div>
+    </div>
+    <div class="album-container" id="albumContainer">
+        <div class="album-title">Фотоальбомы</div>
+    </div>
+    <div class="photos-container" id="photosContainer">
+        <div class="photos-title">Фотографии</div>
+        <div class="row" id="row1"></div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="main-block">
+                <label for="albumImageInput" class="add-photo">Выберите фотографии для альбома:</label>
+                <input type="file" id="albumImageInput" class="upload-image" multiple>
+            </div>
+            <div class="input-block">
+                <input type="text" id="albumTitleInput" placeholder="Название альбома">
+            </div>
+            <div class="input-block">
+                <textarea id="albumDescriptionInput" placeholder="Описание альбома"></textarea>
+            </div>
+            <button id="albumOkButton">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // JS код
+        // Открываем модальное окно при нажатии на кнопку "Загрузить фотоальбом"
+        document.getElementById("openAlbumModalButton").addEventListener("click", function() {
+            document.getElementById("modal").style.display = "block";
+        });
+
+        // Закрываем модальное окно при нажатии на крестик
+        document.getElementsByClassName("close")[0].addEventListener("click", function() {
+            document.getElementById("modal").style.display = "none";
+        });
+
+        // Закрываем модальное окно при клике вне его
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("modal")) {
+                document.getElementById("modal").style.display = "none";
+            }
+        };
+
+        // Обработчик события для кнопки "OK"
+        document.getElementById("albumOkButton").addEventListener("click", function() {
+            // Получаем данные из полей ввода
+            var albumTitle = document.getElementById("albumTitleInput").value;
+            var albumDescription = document.getElementById("albumDescriptionInput").value;
+
+            // Получаем выбранные файлы из input[type=file]
+            var albumFileInput = document.getElementById('albumImageInput');
+            var albumFiles = albumFileInput.files;
+
+            // Проверяем, что выбраны файлы
+            if (albumFiles.length === 0) {
+                alert('Выберите фотографии для альбома.');
+                return;
+            }
+
+            // Создаем контейнер для альбома
+            var albumContainer = document.createElement("div");
+            albumContainer.classList.add("album");
+
+            // Создаем заголовок для альбома
+            var albumTitleElement = document.createElement("div");
+            albumTitleElement.textContent = albumTitle;
+            albumTitleElement.classList.add("album-title");
+
+            // Добавляем заголовок в контейнер альбома
+            albumContainer.appendChild(albumTitleElement);
+
+            // Создаем контейнер для фотографий альбома
+            var albumPhotosContainer = document.createElement("div");
+            albumPhotosContainer.classList.add("photos-container");
+
+            // Добавляем фотографии в контейнер альбома
+            for (var i = 0; i < albumFiles.length; i++) {
+                var albumPhoto = albumFiles[i];
+                var albumPhotoElement = document.createElement("img");
+                albumPhotoElement.src = URL.createObjectURL(albumPhoto);
+                albumPhotoElement.classList.add("photo");
+                albumPhotosContainer.appendChild(albumPhotoElement);
+            }
+
+            // Добавляем контейнер фотографий альбома в контейнер альбома
+            albumContainer.appendChild(albumPhotosContainer);
+
+            // Получаем контейнер для альбомов и добавляем новый альбом
+            var albumContainers = document.getElementById("albumContainer");
+            albumContainers.appendChild(albumContainer);
+
+            // Закрываем модальное окно
+            document.getElementById("modal").style.display = "none";
+        });
+    </script>
+</body>
+</html>
