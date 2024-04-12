@@ -1,0 +1,173 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: hsl(0, 0%, 96%);
+}
+
+h1 {
+    text-align: left;
+    margin-top: 20px;
+    padding-left: 30px;
+}
+
+#PhotoChampLabel:hover {
+    cursor: pointer;
+}
+
+.profile {
+    display: flex;
+    align-items: flex-start; /* Изменено значение свойства align-items */
+    margin-top: 50px;
+}
+
+.info-container {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.avatar-container {
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
+    margin-right: 20px;
+    padding-left: 30px;
+    border-radius: 20px; /* Закругляем все углы контейнера */
+}
+
+.avatar-container img {
+    width: 96%;
+    height: 97%;
+    object-fit: cover;
+    border-radius: 20px; /* Закругляем все углы изображения */
+    border: 5px dashed rgba(128, 128, 128, 0);
+}
+
+.avatar-container img:hover {
+    border-color: rgba(128, 128, 128, 0.5); /* Изменяем прозрачность рамки при наведении на изображение */
+}
+
+.avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px; /* или любое другое значение */
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"] {
+    width: 600px; /* Увеличиваем ширину поля для ввода текста */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: lightgray;
+    color: black;
+}
+
+textarea {
+    height: 300px; /* Увеличиваем ширину поля для ввода текста */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    resize: none; /* Запрещаем изменение размера поля с описанием */
+    background-color: lightgray;
+    color: black;
+}
+
+.albums-title, .photos-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding-left: 30px;
+}
+
+.albums-container, .photos-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px;
+}
+
+.albums-container {
+    margin-bottom: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.photos-container {
+    justify-content: flex-start;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 50px;
+}
+
+.album, .photo {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+.add-button {
+    width: 200px;
+    height: 200px;
+    border: 2px dashed rgba(128, 128, 128, 0.5); /* Не очень тонкая и не очень толстая серая пунктирная рамка с небольшой прозрачностью */
+    background-color: #f2f2f2; /* Светло серый задний фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px; /* Закругление углов */
+    font-size: 72px; /* Размер текста "+" */
+    color: #555; /* Цвет текста "+" */
+    user-select: none;
+    margin-right: 20px;
+}
+
+.add-button:hover {
+    cursor: pointer;
+    background-color: darkgrey;
+    border: 2px dashed rgba(50, 50, 50, 0.5);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding-right: 20px;
+}
+
+#logoutButton {
+    padding: 10px 20px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#logoutButton:hover {
+    background-color: darkred;
+}
+
+#saveChangesButton {
+    padding: 10px 20px;
+    background-color: #c8e6c9;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#saveChangesButton:hover {
+    background-color: seagreen;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя - Онлайн фотогалерея</title>
+    <link rel="stylesheet" type="text/css" href="profile.css">
+</head>
+<body>
+    <div class="header">
+        <h1 id="PhotoChampLabel">PhotoChamp</h1>
+        <button id="logoutButton">Выйти из аккаунта</button> <!-- Кнопка "Выйти из аккаунта" -->
+    </div>
+    <div class="profile">
+        <div class="avatar-container">
+            <input type="file" id="avatarInput" class="upload-image" style="display: none;">
+            <label for="avatarInput" class="add-button" style="width: 290px; height: 382px;">+</label>
+            <img id="avatarImage" src="#" alt="Аватар пользователя" style="display: none;">
+        </div>
+        <div class="user-info">
+            <input type="text" id="nickname" placeholder="Никнейм">
+            <textarea id="description" placeholder="Описание"></textarea>
+            <button id="saveChangesButton">Сохранить изменения</button>
+        </div>
+    </div>
+    <div class="albums-title">Ваши альбомы</div>
+    <div class="albums-container" id="albumsContainer">
+        <div id="addAlbumButton" class="add-button">+</div>
+    </div>
+    <div class="photos-title">Ваши фотографии</div>
+    <div class="photos-container" id="photosContainer">
+        <div id="addPhotoButton" class="add-button">+</div>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+</html>

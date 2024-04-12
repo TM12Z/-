@@ -1,0 +1,484 @@
+body {
+    overflow-x:hidden;
+    background-color: #0056b3; /* Темно-синий цвет фона */
+    margin: 0; /* Убираем отступы по умолчанию */
+    padding: 0;
+    color: #fff; /* Белый цвет текста */
+}
+.header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #004080; /* Ещё более темный синий цвет фона для заголовка */
+}
+.logo {
+    font-weight: bold;
+}
+.search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-input {
+    width: 450px; /* Увеличили длину строки поиска */
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #fff; /* Белая граница для контраста */
+    margin-right: 10px;
+}
+.upload-button {
+    background-color: #fff; /* Белый цвет фона для кнопки */
+    color: #004080; /* Темно-синий цвет текста для кнопки */
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+.upload-button:hover {
+    background-color: #004080; /* Изменяем цвет фона */
+    color: #fff; /* Изменяем цвет текста */
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #6699cc; /* Ещё менее светло-синий цвет фона для аватара */
+    /* background-image: url('аватарка.jpg'); */ /* замените 'аватарка.jpg' на путь к вашей аватарке */
+    background-size: cover;
+    margin-left: 10px;
+}
+.sorting-container {
+    position: relative;
+    background-color: #6699cc; /* Светло-синий цвет фона для области сортировки */
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.sorting {
+    display: flex;
+    align-items: center;
+}
+.sorting-text {
+    margin-right: 10px;
+}
+.arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid #004080; /* Темно-синий цвет стрелки */
+}
+.album-container {
+    background-color: #6699cc; /* Светло-синий цвет фона для контейнера фотоальбомов */
+    height: auto; /* Уменьшили высоту фона в 1.5 раза */
+    overflow-x: auto; /* Включаем горизонтальную прокрутку, если контент не помещается */
+    white-space: nowrap; /* Запрещаем перенос строк, чтобы элементы оставались в одной строке */
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 20px;
+}
+.album-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    padding-top: 10px;
+    color: #fff; /* Белый цвет текста */
+}
+.photos-container {
+    /* Ваши текущие стили */
+    background-color: #6699cc;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    margin-top: 10px; /* Увеличим отступ сверху */
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border-radius: 20px;
+}
+.photos-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    padding-top: 10px;
+    color: #fff; /* Белый цвет текста */
+}
+.photo {
+    width: 200px;
+    height: 200px;
+    object-fit: cover; /* Масштабирование фотографии */ /* Скругленные рамки */
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-style: solid;
+    border-width: 7px;
+    border-color: rgba(0, 0, 0, 0.02);
+    border-radius: 20px;
+}
+
+/* Стиль модального окна */
+.modal {
+    display: none; /* По умолчанию скрыто */
+    position: fixed; /* Положение фиксированное */
+    z-index: 1; /* Находится выше остальных элементов */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ширина равна ширине экрана */
+    height: 100%; /* Высота равна высоте экрана */
+    overflow: auto; /* Добавляем прокрутку, если содержимое не помещается */
+    background-color: rgba(0,0,0,0.5); /* Тёмный фон с прозрачностью */
+}
+
+/* Контейнер содержимого модального окна */
+.modal-content {
+    background-color: lightgray;
+    margin: 15% auto; /* Выравнивание по центру, прижимаем сверху и снизу */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ширина контейнера */
+    border-radius: 10px;
+    position: relative; /* Позиционирование относительно родителя */
+}
+
+/*Контейнер содержимого модального окна фотоальбомов*/
+.modal-content2 {
+    background-color: lightgray;
+    margin: 3% auto; /* Выравнивание по центру, прижимаем сверху и снизу */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 700px;
+    height: 647px;
+    border-radius: 10px;
+    position: relative;
+}
+
+/* Кнопка закрытия модального окна */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    order: 2;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Стили для кнопок выбора типа загрузки */
+.upload-type-buttons {
+    text-align: center;
+}
+
+.upload-type-buttons button {
+    margin: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    border-width: 0px;
+    margin-bottom: 40px;
+}
+
+/* Кнопки для добавления фото в альбом */
+.add-button {
+    width: 75px;
+    height: 75px;
+    border: 2px dashed rgba(128, 128, 128, 0.5); /* Не очень тонкая и не очень толстая серая пунктирная рамка с небольшой прозрачностью */
+    background-color: #f2f2f2; /* Светло серый задний фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px; /* Закругление углов */
+    font-size: 45px; /* Размер текста "+" */
+    color: #555; /* Цвет текста "+" */
+    user-select: none;
+}
+
+.add-button:hover {
+    cursor: pointer;
+}
+
+/*Распредление кнопок по окну */
+.row2 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Добавляем отступ снизу */
+}
+
+/* Текст прогресса заполнения фото в альбоме */
+.PhotoChamp {
+    color:black;
+    margin-bottom: 10px; /* Отступ внизу */
+    margin-left: 12px;
+}
+
+/* Стили для полей ввода в окне загрузки фотоальбомов */
+#uploadAlbumModal input[type="text"],
+#uploadAlbumModal textarea {
+    width: 98%;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border-width: 0px;
+    background-color: gray;
+    resize: none;
+    margin-bottom: 10px;
+    color: white;
+}
+
+#uploadAlbumModal input[type="text"]::placeholder,
+#uploadAlbumModal textarea::placeholder {
+    color: white; /* Желаемый цвет текста плейсхолдера */
+}
+
+#albumPhotoDescriptionInput {
+    height: 130px;
+}
+
+/* Стили для полей ввода и кнопки загрузки фотографии */
+#uploadPhotoModal input[type="text"],
+#uploadPhotoModal textarea {
+    width: 500px;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border-width: 0px;
+    background-color: gray;
+    resize: none;
+    margin-bottom: 10px;
+    color: white;
+}
+
+#uploadPhotoModal textarea {
+    height: 72%;
+}
+
+#uploadPhotoModal input[type="text"]::placeholder,
+#uploadPhotoModal textarea::placeholder {
+    color: white; /* Желаемый цвет текста плейсхолдера */
+}
+
+#uploadImageButton {
+    margin: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    border-width: 0px;
+    margin-bottom: 10px;
+    order: 0;
+    width: 30%;
+    height: 90%;
+    border: 2px dashed rgba(128, 128, 128, 0.5);
+    font-size: 50px;
+}
+
+#uploadImageButton:hover {
+    background-color: lightgray;
+    border: 2px dashed rgba(50, 50, 50, 0.5);
+}
+
+#modal-content-upload-select {
+    width: 40%;
+    background-color: lightgray;
+}
+
+#uploadPhotoModal .modal-content {
+    display: flex;
+    width: 800px;
+    height: 370px;
+}
+
+#uploadPhotoModal .input-container {
+    display: flex;
+    flex-direction: column;
+    order: 1;
+}
+
+#okButton {
+    background-color: lightgreen;
+    border-radius: 20px;
+    width: 13%;
+    height: 13%;
+    align-self: end;
+    margin-right: 10px;
+    border-width: 0px;
+}
+
+#okButton:hover {
+    cursor: pointer;
+    background-color: limegreen;
+}
+
+.selected-photo {
+    border: 4px dashed rgba(128, 128, 128, 0);
+    border-radius: 20px;
+    margin: 10px;
+    margin-bottom: 10px;
+}
+
+.selected-photo:hover {
+    border: 4px dashed rgba(128, 128, 128, 0.5);
+    cursor: pointer;
+}
+
+#okButton2 {
+    background-color: lightgreen;
+    border-radius: 20px;
+    width: 12%;
+    height: 8%;
+    align-self: flex-end; /* Используем flex-end для выравнивания кнопки внизу */
+    margin-left: auto; /* Автоматическое выравнивание слева */
+    margin-right: 10px; /* Отступ справа */
+    border-width: 0px;
+}
+
+#okButton2:hover {
+    cursor: pointer;
+    background-color: limegreen;
+}
+
+.photo {
+    width: 200px;
+    height: 200px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-style: solid;
+    border-width: 7px;
+    border-color: rgba(0, 0, 0, 0.02);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+}
+
+.photo-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.delete-button {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+    display: none; /* Скрываем кнопку удаления по умолчанию */
+}
+
+.selected-photo2 {
+    width: 75px;
+    height: 75px;
+    border-radius: 10px;
+    object-fit: cover;
+    position: relative; /* Добавляем, чтобы кнопка удаления была позиционирована относительно фото */
+}
+
+.selected-photo2 + .delete-button {
+    display: flex; /* Показываем кнопку удаления, когда есть фотография */
+}
+
+#viewPhotoModal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.5);
+}
+
+#viewPhotoModal .modal-content {
+    background-color: #fefefe; 
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 1000px;
+    height: 1000px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.photo-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирование элементов */
+}
+
+#viewPhotoName {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+#viewPhotoImage {
+    width: 70%;
+    height: auto;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px; /* Отступ снизу */
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 4px;
+    border-color: black;
+    margin-top: 30px;
+}
+
+#viewPhotoDescription {
+    width: 900px;
+    height: 300px;
+    margin-top: 30px;
+    border: 1px solid #ccc; /* Граница для контраста */
+    border-radius: 20px; /* Скругление углов */
+    resize: none; /* Запрещаем изменение размера */
+    padding: 20px; /* Отступы внутри */
+    box-sizing: border-box; /* Размеры включают границу и padding */
+    background-color: gray;
+    color: white;
+}

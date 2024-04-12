@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Сайт Фотогалерея</title>
+</head>
+<body>
+    <!-- Ваш HTML код -->
+    <div class="header">
+        <div class="logo">Сайт Фотогалерея</div>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Поиск...">
+        </div>
+        <button id="openModalButton" class="upload-button">Загрузить фото</button>
+        <div class="avatar"></div>
+    </div>
+    <div class="sorting-container">
+        <div class="sorting">
+            <div class="sorting-text">Сортировка</div>
+            <div class="arrow-down"></div>
+        </div>
+    </div>
+    <div class="album-title">Фотоальбомы</div>
+    <div class="album-container" id="albumContainer"></div>
+    <div class="photos-title">Фотографии</div>
+    <div class="photos-container" id="photosContainer">
+        <div class="row" id="row1"></div>
+    </div>
+
+
+
+    <!-- Модальное окно выбора типа загрузки -->
+    <div id="chooseUploadTypeModal" class="modal">
+        <div id="modal-content-upload-select" class="modal-content">
+            <div class="close">&times;</div> <br>
+            <div class="upload-type-buttons">
+                <button id="uploadPhotoButton">Загрузить фотографию</button>
+                <button id="uploadAlbumButton">Загрузить фотоальбом</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Модальное окно загрузки фотографии -->
+    <div id="uploadPhotoModal" class="modal">
+        <div class="modal-content">
+            <div class="close">&times;</div> <br>
+            <button id="uploadImageButton">+</button>
+            <div class="input-container">
+                <input type="text" id="photoNameInput" placeholder="Название фотографии">
+                <textarea id="photoDescriptionInput" placeholder="Описание фотографии"></textarea>
+                <button id="okButton">ОК</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Модальное окно загрузки фотоальбома -->
+    <div id="uploadAlbumModal" class="modal">
+        <!-- Контент модального окна -->
+        <div class="modal-content2">
+            <span class="close">&times;</span>
+            <div> 
+                <input type="text" id="albumPhotoNameInput" placeholder="Название фотоальбома">
+            </div> 
+            <div>
+                <textarea id="albumPhotoDescriptionInput" placeholder="Описание фотоальбома"></textarea> <br>
+            </div>
+            <div id="albumPhotoCounter" class="PhotoChamp">0/24</div>
+            <div class="row2" id="row2">
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+            </div>
+            <div class="row2" id="row2">
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+            </div>
+            <div class="row2" id="row2">
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+                <div id="addAlbumButton" class="add-button">+</div>
+            </div>
+            <button id="okButton2">OK</button>
+        </div>
+    </div>
+
+
+
+    <!-- Модальное окно просмотра фотографии -->
+    <div id="viewPhotoModal" class="modal">
+        <div class="modal-content">
+            <div class="close">&times;</div>
+            <div class="photo-details">
+                <img id="viewPhotoImage" src="" alt="Фотография">
+                <div class="photo-details-text">
+                    <input type="text" id="viewPhotoName" class="photo-name">
+                    <textarea id="viewPhotoDescription" class="photo-description"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="scripts.js"></script>
+    
+</body>
+</html>
